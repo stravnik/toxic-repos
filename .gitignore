@@ -1,15 +1,3 @@
--*
-.idea/
-src/
-
-# Scripts
-scripts/sqlite-converter.py
-scripts/txt-converter.py
-
-# Sqlite3
-sqlite3.def
-sqlite3.dll
-
 # Environments
 .env
 .venv
