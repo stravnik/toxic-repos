@@ -25,6 +25,11 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem
+		data_sorted() {
+			return this.data_all().slice().sort( $mol_compare_text( item => item.datetime ) ).reverse()
+		}
+		
+		@ $mol_mem
 		search( next?: string ) {
 			return this.$.$mol_state_arg.value( 'search', next ) ?? ''
 		}
@@ -32,7 +37,7 @@ namespace $.$$ {
 		@ $mol_mem
 		data_filtered() {
 			
-			let data = this.data_all()
+			let data = this.data_sorted()
 			
 			const type = this.spread()
 			if( type ) data = data.filter( item => item.problem_type === type )
@@ -69,6 +74,15 @@ namespace $.$$ {
 		
 		issue_descr( index: number ) {
 			return this.data_filtered()[ index ].description
+		}
+		
+		download_uri() {
+			const csv = $mol_csv_serial( this.data_filtered() )
+			return `data:text/csv;charset=utf-8,${ encodeURIComponent( csv ) }`
+		}
+		
+		download_name() {
+			return `toxic-repos_${ this.spread() }_${ this.search() }.csv`
 		}
 		
 	}

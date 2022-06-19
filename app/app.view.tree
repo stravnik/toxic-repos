@@ -10,16 +10,16 @@ $toxic_app $mol_book2_catalog
 			uri \https://github.com/nin-jin/toxic-repos
 		<= Lights $mol_lights_toggle
 	menu_foot /
-		<= Chat $mol_link
+		<= News $mol_link
 			uri \https://t.me/toxic_repos
-			hint @ \Discussions
-			sub /
-				<= Chat_icon $mol_icon_telegram
-		<= New $mol_link
-			uri \https://twitter.com/ZStravnik
 			hint @ \News
 			sub /
-				<= News_icon $mol_icon_twitter
+				<= News_icon $mol_icon_telegram
+		<= Support $mol_link
+			hint @ \Support
+			uri \https://t.me/g1l2a
+			sub /
+				<= Chat_icon $mol_icon_bug_outline
 		<= Mail $mol_link
 			uri \mailto:info@toxic-repos.ru
 			hint @ \E-Mail
@@ -47,22 +47,28 @@ $toxic_app $mol_book2_catalog
 	Issues_page* $mol_page
 		title <= issues_page_title* \
 		tools /
+			<= Download $mol_button_download
+				hint @ \Download as spreadsheet
+				uri <= download_uri \
+				file_name <= download_name \
 			<= Search $mol_search
 				query?val <=> search?val \
 		body /
 			<= Issues $mol_list rows <= issues /
-	Issue* $mol_list
-		rows /
-			<= Issue_main* $mol_link
-				uri <= issue_uri* \
-				sub /
-					<= Issue_name* $mol_dimmer
-						haystack <= issue_name* \
-						needle <= search
-					<= Issue_type* $mol_view
-						sub / <= issue_type* \
-					<= Issue_date* $mol_view
-						sub / <= issue_date* \
-			<= Issue_descr* $mol_text
-				text <= issue_descr* \
-				highlight <= search
+				<= Issue*0 $mol_list
+					minimal_height 104
+					minimal_width 0
+					rows /
+						<= Issue_main* $mol_link
+							uri <= issue_uri* \
+							sub /
+								<= Issue_name* $mol_dimmer
+									haystack <= issue_name* \
+									needle <= search
+								<= Issue_type* $mol_view
+									sub / <= issue_type* \
+								<= Issue_date* $mol_view
+									sub / <= issue_date* \
+						<= Issue_descr* $mol_text
+							text <= issue_descr* \
+							highlight <= search
